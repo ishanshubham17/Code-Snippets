@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=1">
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<!-- Iconscout Link For Icons -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+<style>
+*,*:after,*:before{
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	box-sizing: border-box;
+}
+body{
+font-family:'Roboto';
+font-size:16px;
+margin:0;
+background:white;
+color:#fff;
+display:flex;
+justify-content:center;
+}
+.select-box{
+margin-top:150px;
+width:380px;
+position:relative;
+}
+.select-option{
+position:relative;
+display: flex;
+align-items: center;
+box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.select-option input{
+width:100%;
+background-color:#fff;
+color:#000;
+border-radius:7px;
+cursor:pointer;
+font-size:22px;
+padding:15px 20px;
+border:0 !important;
+outline: 0 !important;
+}
+
+.content{
+background-color:#fff;
+position:absolute;
+color:#000;
+border-radius:7px;
+margin-top:15px;
+width:100%;
+z-index:999;
+padding:20px;
+display:none;
+box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+.content .options{
+  margin-top: 10px;
+  max-height: 250px;
+  overflow-y: auto;
+  padding-right: 7px;
+}
+.search i{
+  top: 45px;
+  left: 35px;
+  color: #999;
+  font-size: 20px;
+  pointer-events: none;
+  transform: translateY(-50%);
+  position: absolute;
+  justify-content:center;
+}
+.search input{
+height: 50px;
+  width: 100%;
+  outline: none;
+  font-size: 17px;
+  border-radius: 5px;
+  padding: 0 20px 0 43px;
+  border: 1px solid #B3B3B3;
+}
+.search input:focus{
+  padding-left: 42px;
+  border: 2px solid #4285f4;
+}
+.search input::placeholder{
+  color: #bfbfbf;
+}
+.options{
+margin-top:10px;
+max-height:250px;
+overflow-y:auto;
+padding:0;
+}
+.options li{
+padding:10px 15px;
+border-radius:5px;
+font-size:21px;
+cursor:pointer;
+}
+.options li:hover{
+background-color:#f2f2f2;
+}
+.select-box.active .content{
+display:block;
+}
+.select-box.active .select-option i{
+transform:rotate(-180deg);
+}
+.select-option i{
+  font-size: 31px;
+  transition: transform 0.3s linear;
+  color:#A9A9A9;
+  padding:5px 17px;
+  cursor:pointer;
+}
+
+/* scrollbar customize */
+.options::-webkit-scrollbar{
+  width: 7px;
+}
+.options::-webkit-scrollbar-track{
+  background: #f1f1f1;
+  border-radius: 25px;
+}
+.options::-webkit-scrollbar-thumb{
+  background: #ccc;
+  border-radius: 25px;
+}
+.options::-webkit-scrollbar-thumb:hover{
+  background: #b3b3b3;
+}
+</style>
+</head>
+<body>
+	<div class="select-box">
+    	<div class="select-option">
+        	<input type="text" placeholder="Select" id="soValue" readonly name="">
+            <i class="uil uil-angle-down"></i>
+        </div>
+        <div class="content">
+        	<div class="search">
+            	<i class="uil uil-search"></i>
+            	<input type="text" placeholder="Search" id="optionSearch" name="">
+            </div>
+            <ul class="options">
+            	<li>HTML</li>
+                <li>CSS</li>
+                <li>JavaScript</li>
+                <li>PHP</li>
+                <li>Python</li>
+                <li>React</li>
+                <li>Angular</li>
+            </ul>
+        </div>
+    </div>
+
+<script>
+
+const selectBox=document.querySelector('.select-box');
+const selectOption=document.querySelector('.select-option');
+const soValue=document.querySelector('#soValue');
+const optionSearch=document.querySelector('#optionSearch');
+const options=document.querySelector('.options');
+const optionsList=document.querySelectorAll('.options li');
+
+selectOption.addEventListener('click',function(){
+	selectBox.classList.toggle('active');
+});
+
+optionsList.forEach(function(optionsListSingle){
+	optionsListSingle.addEventListener('click',function(){
+    	text=this.textContent;
+        soValue.value=text;
+        selectBox.classList.remove('active');
+    })
+});
+
+optionSearch.addEventListener('keyup',function(){
+	var filter,li,i,textValue;
+    filter=optionSearch.value.toUpperCase();
+    li=options.getElementsByTagName('li');
+    for(i=0;i<li.length;i++){
+    	liCount=li[i];
+        textValue=liCount.textContent || liCount.innerText;
+        if (textValue.toUpperCase().indexOf(filter) > -1) {
+      		li[i].style.display = '';
+    	} else {
+      		li[i].style.display = 'none';
+    	}
+    }
+})
+</script>
+
+</body>
+</html>
+
